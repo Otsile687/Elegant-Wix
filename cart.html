@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elegant Wix - Cart</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+
+  <nav>
+     <button class="nav-toggle" onclick="toggleNav()">☰</button>
+
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="candles.html"><i class="fas fa-fire"></i> Candles</a>
+    <a href="handsoaps & loations.html"><i class="fas fa-soap"></i> Hand Soaps & Lotions</a>
+    <a href="diffuser & bathbombs.html"><i class="fas fa-spa"></i> Diffuser & Bath Bombs</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a>
+  </nav>
+
+
+  <main>
+    <header>
+      <h1>Your Shopping Cart</h1>
+    </header>
+
+    <section class="cart-section">
+      <table class="cart-table" id="cart-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+        </tbody>
+      </table>
+
+      <div class="cart-summary">
+        <h3 id="cart-total">Total: P0.00</h3>
+        <a href="proceed to checkout.html"><button class="checkout-btn">Proceed to Checkout</button></a>
+
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Elegant Wix | Created by Ronaldinho Nkoma</p>
+    </footer>
+  </main>
+
+  <!-- Cart Script -->
+  <script>
+   
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const tbody = document.getElementById('cart-body');
+      const totalEl = document.getElementById('cart-total');
+      tbody.innerHTML = '';
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const row = document.createElement('tr');
+        const itemTotal = (item.price * item.quantity).toFixed(2);
+        total += parseFloat(itemTotal);
+
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td><input type="number" value="${item.quantity}" min="1" data-index="${index}" class="qty-input"/></td>
+          <td>P${itemTotal}</td>
+          <td><button onclick="removeFromCart(${index})">Remove</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      totalEl.textContent = `Total: P${total.toFixed(2)}`;
+      attachQuantityHandlers();
+    }
+
+    function attachQuantityHandlers() {
+      document.querySelectorAll('.qty-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const index = e.target.getAttribute('data-index');
+          cart[index].quantity = parseInt(e.target.value);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          renderCart();
+        });
+      });
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+
+   <script>
+  function toggleNav() {
+    document.querySelector('nav').classList.toggle('active');
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elegant Wix - Candles</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <nav>
+    <button class="nav-toggle" onclick="toggleNav()">☰</button>
+
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="candles.html"><i class="fas fa-fire"></i> Candles</a>
+    <a href="handsoaps & loations.html"><i class="fas fa-soap"></i> Hand Soaps & Lotions</a>
+    <a href="diffuser & bathbombs.html"><i class="fas fa-spa"></i> Diffuser & Bath Bombs</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a>
+  </nav>
+
+  
+  <header>
+    <h1>Elegant Wix - Scented Candles</h1>
+  </header>
+
+  <main>
+    <div class="section">
+      <h2>Our Signature Candle Collection</h2>
+      <p>Discover our hand-poured candles crafted with natural soy wax and calming fragrances. Perfect for any space!</p>
+    </div>
+
+    <div class="products">
+      <div class="product">
+        <img src="images/candle4.png" alt="Vanilla Bean Candle">
+        <div class="product-info">
+          <h3>Vanilla Bean Candle</h3>
+          <p>P37.99</p>
+          <p>Classic creamy vanilla in a glass jar — warm, soothing, and elegant for any home space.</p>
+          <button onclick="addToCart('Vanilla Bean Candle', 37.99)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/3white candles.jpg" alt="Rose Candle Collection">
+        <div class="product-info">
+          <h3>Rose Candle Collection</h3>
+          <p>P414.95</p>
+          <p>The following candle collection is made up of different sized rose scented candles.</p>
+          <button onclick="addToCart('Rose Candle Collection', 414.95)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/bbbcandle.jpg" alt="Special Candles Sale">
+        <div class="product-info">
+          <h3>Special Candles Sale</h3>
+          <p>P220.00</p>
+          <p>The special candle sale consists of three different candles namely: Coconut, Ocean, and Vanilla.</p>
+          <button onclick="addToCart('Special Candles Sale', 220.00)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/white candles ..jpg" alt="Plain Candles">
+        <div class="product-info">
+          <h3>Plain Candles</h3>
+          <p>P172.00</p>
+          <p>The white candles are specialised for candle-lit dinners especially for loved ones.</p>
+          <button onclick="addToCart('Plain Candles', 172.00)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <img src="images/allcandles&diffuser.jpg" alt="Candles Collection">
+        <div class="product-info">
+          <h3>Candles Collection</h3>
+          <p>P347.95</p>
+          <p>Bright and fresh scent featuring lemon, grapefruit, and a splash of sweet orange.</p>
+          <button onclick="addToCart('Candles Collection', 347.95)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Elegant Wix | Created by Ronaldinho Nkoma</p>
+  </footer>
+
+  <!-- Add to Cart Script -->
+  <script>
+    function addToCart(productName, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      const existingItem = cart.find(item => item.name === productName);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name: productName, price: parseFloat(price), quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${productName} has been added to your cart.`);
+    }
+  </script>
+   
+  <script>
+  function toggleNav() {
+    document.querySelector('nav').classList.toggle('active');
+  }
+</script>
+
+
+</body>
+</html>

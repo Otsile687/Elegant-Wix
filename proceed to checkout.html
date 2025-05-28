@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elegant Wix - Checkout</title>
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+<body>
+
+  <nav>
+     <button class="nav-toggle" onclick="toggleNav()">☰</button>
+      
+    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+    <a href="candles.html"><i class="fas fa-fire"></i> Candles</a>
+    <a href="handsoaps & loations.html"><i class="fas fa-soap"></i> Hand Soaps & Lotions</a>
+    <a href="diffuser & bathbombs.html"><i class="fas fa-spa"></i> Diffuser & Bath Bombs</a>
+    <a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="feedback.html"><i class="fas fa-comment-dots"></i> Feedback</a>
+  </nav>
+
+  <main>
+    <header>
+      <h1>Checkout</h1>
+    </header>
+
+    <section class="section">
+      <div id="checkout-items"></div>
+
+      <h3 id="checkout-total">Total: P0.00</h3>
+
+      <form id="checkout-form" class="feedback-form" onsubmit="placeOrder(event)">
+        <h3>Customer Details</h3>
+        <label>Name:</label>
+        <input type="text" required>
+        <label>Email:</label>
+        <input type="email" required>
+        <label>Delivery Address:</label>
+        <textarea rows="4" required></textarea>
+        <button type="submit">Place Order</button>
+      </form>
+
+      <div id="confirmation" style="display:none; text-align:center; margin-top:20px;">
+        <h3>✅ Order placed successfully!</h3>
+        <p>Thank you for shopping with Elegant Wix.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2025 Elegant Wix | Created by Ronaldinho Nkoma</p>
+    </footer>
+  </main>
+
+  <script>
+    // Display cart items
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const itemsContainer = document.getElementById('checkout-items');
+    const totalDisplay = document.getElementById('checkout-total');
+    let total = 0;
+
+    if (cart.length === 0) {
+      itemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+      totalDisplay.style.display = 'none';
+      document.getElementById('checkout-form').style.display = 'none';
+    } else {
+      let list = '<ul>';
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        list += `<li>${item.quantity} × ${item.name} — P${subtotal.toFixed(2)}</li>`;
+      });
+      list += '</ul>';
+      itemsContainer.innerHTML = list;
+      totalDisplay.textContent = `Total: P${total.toFixed(2)}`;
+    }
+
+    function placeOrder(e) {
+      e.preventDefault();
+      localStorage.removeItem('cart');
+      document.getElementById('checkout-form').style.display = 'none';
+      document.getElementById('checkout-total').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    }
+  </script>
+
+   <script>
+  function toggleNav() {
+    document.querySelector('nav').classList.toggle('active');
+  }
+</script>
+
+</body>
+</html>
